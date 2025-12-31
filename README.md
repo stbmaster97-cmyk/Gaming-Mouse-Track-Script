@@ -16,7 +16,8 @@
 * **Auto Disable** Automatically disables tracking if there is "no mouse movement|**idle**" (useful for games openening inventory and using the same key to open door/interact will reset the traking to center).
 * **Movement Threshold:** In pixel set a limit of mouse detection as **idle** or ignores small movements (useful if game dont have a centered crosshair or have a movement mechanic).
 * **Zoom:** Automatically manages **Crop** and **Scale** filters to ensure a 100% canvas fill.
-* **Smart Auto-Reset:** * **On-Screen Idle Reset:** Returns to center if the mouse stops moving for a set duration.
+* **Smart Auto-Reset:** 
+    * **On-Screen Idle Reset:** Returns to center if the mouse stops moving for a set duration.
     * **Off-Screen Reset:** Automatically centers the view if the mouse leaves the designated monitor.
 * **Presets Included:** Instant setup for **TikTok (608x1080)** and **Square (1080x1080)** or custom formats, if used in a smaller or reusing in multiple Canvas and crop is needed suggest to use source clone.
 * **Deadzone** Deadzone linked to the preset or custom resolution not the original source size.
