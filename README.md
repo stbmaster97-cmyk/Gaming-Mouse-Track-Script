@@ -1,5 +1,5 @@
 # 🖱️ Mouse Track V2.4 for OBS
-**Precision Mouse Tracking & Auto-Zoom for Content Creators.**
+**Precision Mouse Tracking & Auto-Zoom for Gaming.**
 
 `Mouse Track V2.4` is a nice Lua script for OBS Studio that allows your sources to dynamically follow your mouse cursor. Perfect for TikTok/Shorts creators, tutorial makers, and gamers who want to maintain focus on the action without manual camera panning.
  
