@@ -45,7 +45,7 @@
 
 ## 📥 Installation & Usage
 
-1. **Download** the `Gaming Mouse Track v2.4.lua` file.
+1. **Download** the `Gaming Mouse Track.lua` file last version.
 2. Open **OBS Studio** and navigate to `Tools` -> `Scripts`.
 3. Click the **+** button and select the downloaded file.
 4. **Assign Hotkeys:** Go to `Settings` -> `Hotkeys` to set:
