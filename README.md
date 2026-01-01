@@ -3,7 +3,7 @@
 
 `Gaming Mouse Track` is a high-performance Lua script for OBS Studio designed to bridge the gap between your mouse movements and your stream's canvas. Whether you are hitting clips in an FPS or hosting professional tutorials, this script ensures your sources follow your cursor with surgical precision.
 
-[![Watch the video]](https://youtu.be/eX2jvM8XAiE?si=qzD1at-zKMlYHJsm)
+[![Watch the video]](https://www.youtube.com/watch?v=lxAwY-MRef4)
 ---
 
 ## 🚀 Core Features
