@@ -1,65 +1,55 @@
-# 🖱️ Mouse Track V2.4 for OBS
-**Precision Mouse Tracking & Auto-Zoom for Gaming.**
+# 🎮 Gaming Mouse Track.
+**Global Canvas Interaction & Stabilized Source Tracking for Gaming.**
 
-`Mouse Track V2.4` is a nice Lua script for OBS Studio that allows your sources to dynamically follow your mouse cursor. Perfect for TikTok/Shorts creators, tutorial makers, and gamers who want to maintain focus on the action without manual camera panning.
- 
- Mostly created and with features for gameplay on vertical it tracks the monitor position so you can use in a vertical canvas and multiple sources.
+`Gaming Mouse Track v2.4` is a versatile Lua script for OBS Studio that bridges the gap between your mouse and your stream's canvas. Designed for gaming and professional tutorials, it allows any source—regardless of its resolution or size—to dynamically follow your cursor.
 
 [![Watch the video]](https://youtu.be/eX2jvM8XAiE?si=qzD1at-zKMlYHJsm)
 ---
 
-## ✨ Key Features
+## ✨ Core Features
 
-* **Multi-Source Support:** Track up to 10 different sources simultaneously with independent settings for each.
-* **Intelligent Panning:** Smooth, physics-based movement with adjustable speed and deadzones.
-* **Monitor Tracking** Monitor base tracking can be used in any source or source clone , also individualy tracked for the monitor selected.
-* **Auto Disable** Automatically disables tracking if there is "no mouse movement|**idle**" (useful for games openening inventory and using the same key to open door/interact will reset the traking to center).
-* **Movement Threshold:** In pixel set a limit of mouse detection as **idle** or ignores small movements (useful if game dont have a centered crosshair or have a movement mechanic).
-* **Zoom:** Automatically manages **Crop** and **Scale** filters to ensure a 100% canvas fill.
-* **Smart Auto-Reset:** 
-    * **On-Screen Idle Reset:** Returns to center if the mouse stops moving for a set duration.
-    * **Off-Screen Reset:** Automatically centers the view if the mouse leaves the designated monitor.
-* **Presets Included:** Instant setup for **TikTok (608x1080)** and **Square (1080x1080)** or custom formats, if used in a smaller or reusing in multiple Canvas and crop is needed suggest to use source clone.
-* **Deadzone** Deadzone linked to the preset or custom resolution not the original source size.
-* **Advanced Hotkeys:** 
-    * Toggle/Enable Tracking
-    * Dedicated Disable (Split Mode)
-    * Manual Position Reset
-    * Instant Zoom: Toggle a secondary zoom level on the fly.
+* **Global Canvas Adaptability:** Works seamlessly across multiple canvases. Whether your source is the same size as your stream, game, source or a smaller windowed element, the tracking scales to fit.
+* **Multi-Source Support:** Independent settings for up to **10 different sources** simultaneously. You can have your gameplay, Window, and browser all tracking at once with unique speeds.
+* **Dual-Filter Logic:** Automatically manages **Crop + Scale** filters to ensure a 100% canvas fill—no black bars, even when the source resolution doesn't match the output.
+* **Zoom:** Use a hotkey to instantly "punch in" on a specific area for a sniper-cam or detail-focused effect.
 
 ---
 
-## 🚀 Installation
+## 🕹️ Specialized Gaming Logic
 
-1. **Download** the `Mouse Track V2.4.lua` file from this repository.
-2. Open OBS Studio.
-3. Go to **Tools** -> **Scripts**.
-4. Click the **+** button and select the `Mouse Track V2.4.lua` file.
-5. Select your source and monitor in the script settings panel.
+* **Anti-Jitter (Movement Threshold):** In many games, the crosshair or center-point isn't perfectly still due to idle sway or breathing animations. The script ignores these micro-movements (customizable in pixels), ensuring your stream remains rock-steady until you actually move your mouse.
+* **Deadzone Buffers:** Create a "safe zone" in the center of your screen. The camera won't move while your mouse is inside this area, preventing motion sickness for viewers during small aim adjustments.
+* **Smart Inventory Toggle (Auto-Disable):** Designed for games where the "Interact" key is the same as the "Inventory" key. This feature prevents the tracker from staying active in a menu if triggered by a multi-use key, automatically disabling and centering after a short idle period.
+* **Intelligent Auto-Reset:**
+    * **On-Screen Idle Reset:** Automatically returns the view to center if the mouse stops moving for a set duration.
+    * **Boundary Safety:** If you flick your mouse to a second monitor or out of the game window, the camera instantly snaps back to center.
 
 ---
 
-## 🛠️ Configuration Options
+## 🛠️ Configuration & Settings
 
-| Setting | Description |
+| Setting | Gamer's Use Case |
 | :--- | :--- |
-| **Center View Before Disabling** | Smoothly moves the camera back to center before turning off. |
-| **Movement Threshold** | Ignores tiny mouse jitters (measured in pixels). |
-| **Deadzone %** | Defines an area in the center where the mouse can move without the camera following. |
-| **Zoom Multiplier** | Sets the magnification level when the Zoom Hotkey is activated. |
-| **Monitor Boundary** | Restricts tracking to a specific monitor in a multi-head setup. |
+| **Movement Threshold** | **15-25px** — Prevents the camera from twitching due to in-game crosshair "wiggle." |
+| **Deadzone %** | **5-10%** — Creates a center "safe zone" for micro-aiming without moving the camera. |
+| **Auto-Disable Time** | **1-2 sec** — Safely toggles tracking off after you finish looting or navigating menus. |
+| **Center on Stop** | **Enabled** — Automatically centers your view the moment tracking is disabled. |
+| **Tracking Speed** | **40-60%** — Balances responsiveness with smooth, cinematic movement. |
 
 ---
 
-## ⌨️ Hotkeys
+## 🚀 Installation & Usage
 
-To get the most out of the script, assign these in **Settings -> Hotkeys**:
-* `Toggle / Enable Mouse Tracking`
-* `Toggle Zoom Level`
-* `Reset Tracker Position`
+1. **Download** the `Gaming Mouse Track v2.4.lua` file.
+2. Open OBS Studio and go to **Tools** -> **Scripts**.
+3. Click the **+** button and select the script.
+4. **Setup Hotkeys:** Go to **Settings -> Hotkeys** to assign:
+    * `Toggle / Enable Mouse Tracking`
+    * `Toggle Zoom Level`
+    * `Reset Tracker Position` (Manual snap-back to center)
 
 ---
 
-## ⚠️ Known Issues
-* **Zoom Scaling:** Zooming currently has a known visual offset bug that is being addressed in the next version.
-* **Filter Stacking:** The script handles filter creation automatically; manual changes to the "Track_P" or "Stretch_P" filters may be overwritten.
+## ⚠️ Technical Notes
+* **Zoom Rescaling:** Note that version 2.4 has a known visual offset bug during high-multiplier zooming which is being addressed in the next update.
+* **Filter Management:** The script manages "Track_P" and "Stretch_P" filters automatically. Manual changes to these filters may be overwritten.
