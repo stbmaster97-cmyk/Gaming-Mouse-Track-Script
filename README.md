@@ -1,7 +1,7 @@
-# 🖱️ Gaming Mouse Track v2.4
+# 🖱️ Gaming Mouse Track
 ### **Global Canvas Interaction & Stabilized Source Tracking for Streamers**
 
-`Gaming Mouse Track v2.4` is a high-performance Lua script for OBS Studio designed to bridge the gap between your mouse movements and your stream's canvas. Whether you are hitting clips in an FPS or hosting professional tutorials, this script ensures your sources follow your cursor with surgical precision.
+`Gaming Mouse Track` is a high-performance Lua script for OBS Studio designed to bridge the gap between your mouse movements and your stream's canvas. Whether you are hitting clips in an FPS or hosting professional tutorials, this script ensures your sources follow your cursor with surgical precision.
 
 [![Watch the video]](https://youtu.be/eX2jvM8XAiE?si=qzD1at-zKMlYHJsm)
 ---
