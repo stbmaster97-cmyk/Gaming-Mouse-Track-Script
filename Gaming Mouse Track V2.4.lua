@@ -1,3 +1,9 @@
+-- Fixes: Dual Filter Logic (Crop + Scale) to ensure 100% canvas fill
+-- Added Zoom Hotkey
+-- Integrated Scaling/Aspect Ratio filter for stretching
+-- Prevented filter stacking for both Crop and Scale filters
+-- Re-added Tracking Modes: Horizontal, Vertical, Both
+
 local obs = obslua
 local ffi = require("ffi")
 
@@ -127,16 +133,28 @@ function on_tick()
             local o_delay = profile.off_delay or 1.0
             local should_reset = is_closing or (idle_time >= r_delay and mouse_on_monitor) or (profile.off_mon_timer >= o_delay)
 
-            if should_reset then target_x, target_y = centerX, centerY 
+            if should_reset then 
+                target_x, target_y = centerX, centerY 
             elseif mouse_on_monitor then
-                local view_center_x = profile.cur_x + crop_w * 0.5
-                local dz_x = crop_w * ((profile.deadzone or 0) / 100) * 0.5
-                if mouse_x < view_center_x - dz_x then target_x = mouse_x - crop_w * 0.5 + dz_x
-                elseif mouse_x > view_center_x + dz_x then target_x = mouse_x - crop_w * 0.5 - dz_x end
-                local view_center_y = profile.cur_y + crop_h * 0.5
-                local dz_y = crop_h * ((profile.deadzone or 0) / 100) * 0.5
-                if mouse_y < view_center_y - dz_y then target_y = mouse_y - crop_h * 0.5 + dz_y
-                elseif mouse_y > view_center_y + dz_y then target_y = mouse_y - crop_h * 0.5 - dz_y end
+                -- Horizontal Logic
+                if profile.mode == "both" or profile.mode == "horizontal" then
+                    local view_center_x = profile.cur_x + crop_w * 0.5
+                    local dz_x = crop_w * ((profile.deadzone or 0) / 100) * 0.5
+                    if mouse_x < view_center_x - dz_x then target_x = mouse_x - crop_w * 0.5 + dz_x
+                    elseif mouse_x > view_center_x + dz_x then target_x = mouse_x - crop_w * 0.5 - dz_x end
+                else
+                    target_x = centerX
+                end
+
+                -- Vertical Logic
+                if profile.mode == "both" or profile.mode == "vertical" then
+                    local view_center_y = profile.cur_y + crop_h * 0.5
+                    local dz_y = crop_h * ((profile.deadzone or 0) / 100) * 0.5
+                    if mouse_y < view_center_y - dz_y then target_y = mouse_y - crop_h * 0.5 + dz_y
+                    elseif mouse_y > view_center_y + dz_y then target_y = mouse_y - crop_h * 0.5 - dz_y end
+                else
+                    target_y = centerY
+                end
             end
 
             local dx, dy = target_x - profile.cur_x, target_y - profile.cur_y
@@ -183,6 +201,11 @@ function script_properties()
         obs.obs_properties_add_list(g_props, "s" .. i .. "_name", "Source", obs.OBS_COMBO_TYPE_LIST, obs.OBS_COMBO_FORMAT_STRING)
         local m_list = obs.obs_properties_add_list(g_props, "s" .. i .. "_mon", "Monitor Boundary", obs.OBS_COMBO_TYPE_LIST, obs.OBS_COMBO_FORMAT_INT)
         for idx, m in ipairs(monitors) do obs.obs_property_list_add_int(m_list, m.name, idx) end
+
+        local mode_list = obs.obs_properties_add_list(g_props, "s" .. i .. "_mode", "Tracking Mode", obs.OBS_COMBO_TYPE_LIST, obs.OBS_COMBO_FORMAT_STRING)
+        obs.obs_property_list_add_string(mode_list, "Both", "both")
+        obs.obs_property_list_add_string(mode_list, "Horizontal Only", "horizontal")
+        obs.obs_property_list_add_string(mode_list, "Vertical Only", "vertical")
 
         local p_list = obs.obs_properties_add_list(g_props, "s" .. i .. "_preset", "Preset", obs.OBS_COMBO_TYPE_LIST, obs.OBS_COMBO_FORMAT_STRING)
         obs.obs_property_list_add_string(p_list, "TikTok (608x1080)", "tiktok")
@@ -237,10 +260,9 @@ function script_update(settings)
         if name and name ~= "" and name ~= "<None>" then
             local src = obs.obs_get_source_by_name(name)
             if src then
-                local filter_name = "Track_P" .. i
-                local scale_filter_name = "Stretch_P" .. i
+                local filter_name = "Track_P1" .. i
+                local scale_filter_name = "Stretch_P1" .. i
                 
-                -- Anti-stacking cleanup
                 local old_f = obs.obs_source_get_filter_by_name(src, filter_name)
                 if old_f then obs.obs_source_filter_remove(src, old_f); obs.obs_source_release(old_f) end
                 local old_s = obs.obs_source_get_filter_by_name(src, scale_filter_name)
@@ -250,13 +272,11 @@ function script_update(settings)
                 local w, h = obs.obs_data_get_int(settings, "s" .. i .. "_w"), obs.obs_data_get_int(settings, "s" .. i .. "_h")
                 if preset == "tiktok" then w, h = 608, 1080 elseif preset == "square" then w, h = 1080, 1080 end
                 
-                -- Create Crop Filter
                 local s_data = obs.obs_data_create()
                 obs.obs_data_set_bool(s_data, "relative", false)
                 local f = obs.obs_source_create_private("crop_filter", filter_name, s_data)
                 obs.obs_source_filter_add(src, f)
                 
-                -- Create Scale Filter (To force the Stretch)
                 local scale_data = obs.obs_data_create()
                 obs.obs_data_set_string(scale_data, "resolution", tostring(w) .. "x" .. tostring(h))
                 obs.obs_data_set_string(scale_data, "sampling", "bicubic")
@@ -267,6 +287,7 @@ function script_update(settings)
                 table.insert(tracker_profiles, {
                     source = src, filter = f, settings = s_data,
                     monitor_idx = obs.obs_data_get_int(settings, "s" .. i .. "_mon"),
+                    mode = obs.obs_data_get_string(settings, "s" .. i .. "_mode"),
                     width = w, height = h, zoom = obs.obs_data_get_double(settings, "s" .. i .. "_zoom"),
                     speed = obs.obs_data_get_int(settings, "s" .. i .. "_speed"),
                     deadzone = obs.obs_data_get_int(settings, "s" .. i .. "_dz"),
@@ -294,6 +315,7 @@ function script_defaults(settings)
     obs.obs_data_set_default_int(settings, "auto_disable_time", 0)
     obs.obs_data_set_default_int(settings, "move_threshold", 10)
     for i = 1, MAX_SOURCES do
+        obs.obs_data_set_default_string(settings, "s" .. i .. "_mode", "both")
         obs.obs_data_set_default_string(settings, "s" .. i .. "_preset", "tiktok")
         obs.obs_data_set_default_int(settings, "s" .. i .. "_w", 608)
         obs.obs_data_set_default_int(settings, "s" .. i .. "_h", 1080)
