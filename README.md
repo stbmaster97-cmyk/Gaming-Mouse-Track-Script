@@ -57,6 +57,12 @@
 
 ## ⚠️ Technical Notes
 
-> **Note on Zoom Rescaling:** v2.4 has a known visual offset bug during high-multiplier zooming. A fix is currently in development.
-
-* **Filter Management:** The script automatically controls `Track_P` and `Stretch_P` filters. Manual adjustments to these specific filters may be overwritten by the script logic.
+> **Updates**
+   Gaming Mouse Track V2.6 (Updated).\
+   Fixes: Improved zoom animation smoothness and responsiveness.\
+   Added more zoom animation types (ease-in, ease-out, ease-in-out, smooth step).\
+   Improved performance by optimizing source refresh logic.\
+   Improved idle detection logic.\
+   If reset timer = 0, no automatic reset occurs.\
+   
+---
