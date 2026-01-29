@@ -1,4 +1,5 @@
 # 🖱️ Gaming Mouse Track
+Check right side of this page download lat release V2.6.
 ### **Multiple source mouse tracker with canvas limits for Gaming and Vertical streams​**
 
 `Gaming Mouse Track` is a high-performance Lua script for OBS Studio designed to bridge the gap between your mouse movements and your stream's canvas. Whether you are hitting clips in an FPS or hosting professional tutorials, this script ensures your sources follow your cursor with surgical precision.
