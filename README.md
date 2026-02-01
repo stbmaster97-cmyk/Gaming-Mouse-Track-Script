@@ -1,6 +1,6 @@
 # 🖱️ Gaming Mouse Track
-Check right side of this page download last release V2.7./
-USE Source Clone by Exeldro to use the vertical presets or it will crop your original source
+Check right side of this page download last release V2.7.\
+USE Source Clone by Exeldro to use the vertical presets or it will crop your original source.
 
 ### **Multiple source mouse tracker with canvas limits for Gaming and Vertical streams​**
 
