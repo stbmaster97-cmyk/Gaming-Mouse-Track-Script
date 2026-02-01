@@ -58,6 +58,6 @@ Check right side of this page download last release V2.7.
 
 ## ⚠️ Technical Notes
 
-> USE Source Clone by Exeldro for vertical to use the vertical presets or it will crop your original source
+> USE Source Clone by Exeldro to use the vertical presets or it will crop your original source
    
 ---
