@@ -58,12 +58,6 @@ Check right side of this page download last release V2.7.
 
 ## ⚠️ Technical Notes
 
-> **Updates**
-   Gaming Mouse Track V2.6 (Updated).\
-   Fixes: Improved zoom animation smoothness and responsiveness.\
-   Added more zoom animation types (ease-in, ease-out, ease-in-out, smooth step).\
-   Improved performance by optimizing source refresh logic.\
-   Improved idle detection logic.\
-   If reset timer = 0, no automatic reset occurs.\
+> USE Source Clone by Exeldro for vertical to use the vertical presets or it will crop your original source
    
 ---
